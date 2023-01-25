@@ -49,18 +49,18 @@
                                 <input type="date" id="date" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label for="fileExel">Enter file (exel file)</label>
-                                <input type="file" id="fileExel" class="form-control">
+                                <label for="excel">Enter file (exel file)</label>
+                                <input type="file" id="excel" class="form-control">
                                 <small id="errorExel" class="text-danger"></small>
                             </div>
                             <div class="mb-3">
-                                <label for="filePdf">Enter file (pdf file)</label>
-                                <input type="file" id="filePdf" class="form-control">
+                                <label for="pdf">Enter file (pdf file)</label>
+                                <input type="file" id="pdf" class="form-control">
                                 <small id="errorPdf" class="text-danger"></small>
                             </div>
                             <div class="mb-3">
-                                <label for="fileImage">Enter image (.jpg, .png or .PNG, .JPG)</label>
-                                <input type="file" id="fileImage" class="form-control">
+                                <label for="image">Enter image (.jpg, .png or .PNG, .JPG)</label>
+                                <input type="file" id="image" class="form-control">
                                 <small id="errorImage" class="text-danger"></small>
                             </div>
                             <div class="mb-3">
@@ -69,7 +69,7 @@
                                 <span id="rangeHis"></span>
                             </div>
                             <div class="mb-3">
-                                <input type="button" class="btn btn-success w-100" value="Send Data">
+                                <input type="button" id="send" class="btn btn-success w-100" value="Send Data">
                             </div>
                         </form>
                     </div>
@@ -84,24 +84,9 @@
                 let sum = parseInt(this.value) * 100000;
                 $("#rangeHis").html(sum + " so'm")
             })
-            $("#getData").click(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8000/api/store",
-                    data: {
-                        firstname: $('#fname').val().trim(),
-                        lastname: $("#lname").val().trim(),
-                        desc: $("#desc").val().trim(),
-
-                    },
-                    success: function(data) {
-                        console.log(data)
-                    }
-                })
-            })
 
             // check file image
-            $("#fileImage").change(function() {
+            $("#image").change(function() {
                 let file = this.value.split('.')
                 let arrayExtensions = ['jpg', 'png', 'jpeg'];
                 let ext = file[file.length - 1].toLowerCase();
@@ -117,7 +102,7 @@
             })
 
             // check file exel
-            $("#fileExel").change(function() {
+            $("#excel").change(function() {
                 let file = this.value.split('.')
                 let arrayExtensions = ['xlsx', 'xls', 'xlx'];
                 let ext = file[file.length - 1].toLowerCase();
@@ -135,7 +120,7 @@
             })
 
             // check file pdf
-            $("#filePdf").change(function() {
+            $("#pdf").change(function() {
                 let file = this.value.split('.')
                 let arrayExtensions = ['pdf', 'docx', 'doc'];
                 let ext = file[file.length - 1].toLowerCase();
@@ -150,6 +135,30 @@
                 }
 
                 $("#errorPdf").html(error)
+            })
+
+            $("#send").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8000/api/store",
+                    data: {
+                        firstname: $('#fname').val(),
+                        lastname: $("#lname").val(),
+                        desc: $("#desc").val(),
+                        type: $('#type').val(),
+                        date: $("#date").val(),
+                        foto: $("#image").val(),
+                        excel: $("#excel").val(),
+                        pdf: $("#pdf").val(),
+                        range: $("#range").val(),
+                    },
+                    success: function(data) {
+                        console.log(data)
+                    },
+                    error: function(err) {
+                        console.log(err)
+                    }
+                })
             })
         })
     </script>

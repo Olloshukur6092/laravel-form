@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('store', [FileUploadController::class, 'store']);
+// Route::post('store', function() {
+//     return "salom";
+// });
