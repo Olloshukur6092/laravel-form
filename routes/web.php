@@ -19,4 +19,3 @@ Route::get('/', function () {
 });
 
 Route::get("upload", [FileUploadController::class, 'uploadPage']);
-Route::get("uploads", [FileUploadController::class, 'uploadFile'])->name('uploadFile');

@@ -38,7 +38,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="document">Select document type</label>
-                                <select id="document" class="form-select">
+                                <select id="type" class="form-select">
                                     <option value="0" selected disabled>Select document type</option>
                                     <option value="1">Doc 1</option>
                                     <option value="2">Doc 2</option>
@@ -86,8 +86,14 @@
             })
             $("#getData").click(function() {
                 $.ajax({
-                    type: "GET",
-                    url: "uploads",
+                    type: "POST",
+                    url: "http://localhost:8000/api/store",
+                    data: {
+                        firstname: $('#fname').val().trim(),
+                        lastname: $("#lname").val().trim(),
+                        desc: $("#desc").val().trim(),
+
+                    },
                     success: function(data) {
                         console.log(data)
                     }
